@@ -2,7 +2,6 @@
 <!-- do not remove line below -->
 
 <a href="">![GitHub](https://img.shields.io/github/license/tratteo/guide_it?color=orange&label=License)</a>
-<a href="">![GitHub top language](https://img.shields.io/github/languages/top/tratteo/guide_it?color=blue&label=dart&logo=dart)</a>
 <a href="">![GitHub last commit (branch)](https://img.shields.io/github/last-commit/tratteo/guide_it/main?label=Last%20commit&color=brightgreen&logo=github)</a>
 
 </div>
