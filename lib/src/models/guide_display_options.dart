@@ -10,7 +10,8 @@ class GuideDisplayOptions {
     this.highlightRadius = const Radius.circular(12),
     this.defaultIndicator = const GuideIndicator(),
     this.showIndicator = true,
-    this.widgetPadding = const EdgeInsets.only(left: 32, right: 32, top: 32, bottom: 32),
+    this.widgetPadding =
+        const EdgeInsets.only(left: 32, right: 32, top: 32, bottom: 32),
   });
 
   /// Animation options

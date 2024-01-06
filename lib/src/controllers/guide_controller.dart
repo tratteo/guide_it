@@ -22,11 +22,13 @@ class ShowGuideParams {
 }
 
 class GuideController {
-  final StreamController<ShowGuideParams> _showStream = StreamController.broadcast();
+  final StreamController<ShowGuideParams> _showStream =
+      StreamController.broadcast();
 
   Stream<ShowGuideParams> get show => _showStream.stream;
 
-  void showTutorial({required ShowGuideParams params}) => _showStream.sink.add(params);
+  void showTutorial({required ShowGuideParams params}) =>
+      _showStream.sink.add(params);
 
   void dispose() => _showStream.close();
 }

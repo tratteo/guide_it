@@ -9,7 +9,8 @@ class GuideItem {
   });
 
   /// Override the default display options for this item
-  final GuideDisplayOptions Function(GuideDisplayOptions defaultOptions)? displayOptions;
+  final GuideDisplayOptions Function(GuideDisplayOptions defaultOptions)?
+      displayOptions;
 
   /// The guide item to show, generally a text or an action
   final Widget child;

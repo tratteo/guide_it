@@ -17,7 +17,8 @@ class GuideIndicatorWidget extends StatefulWidget {
   State<GuideIndicatorWidget> createState() => _GuideIndicatorWidgetState();
 }
 
-class _GuideIndicatorWidgetState extends State<GuideIndicatorWidget> with TickerProviderStateMixin {
+class _GuideIndicatorWidgetState extends State<GuideIndicatorWidget>
+    with TickerProviderStateMixin {
   late final AnimationController _animationController = AnimationController(
     duration: widget.indicator.animationOptions.duration,
     vsync: this,
@@ -30,15 +31,20 @@ class _GuideIndicatorWidgetState extends State<GuideIndicatorWidget> with Ticker
     setState(() {
       switch (widget.indicator.animationOptions.type) {
         case AnimationType.scale:
-          _animatable = widget.indicator.animationOptions.curve.transform(_animationController.value) * (1 - widget.indicator.animationOptions.initialScale) +
+          _animatable = widget.indicator.animationOptions.curve
+                      .transform(_animationController.value) *
+                  (1 - widget.indicator.animationOptions.initialScale) +
               widget.indicator.animationOptions.initialScale;
           break;
         case AnimationType.translation:
-          _animatable = widget.indicator.animationOptions.curve.transform(1 - _animationController.value) * widget.indicator.animationOptions.transitionOffset;
+          _animatable = widget.indicator.animationOptions.curve
+                  .transform(1 - _animationController.value) *
+              widget.indicator.animationOptions.transitionOffset;
           break;
       }
       if (widget.indicator.animationOptions.fade) {
-        _opacity = widget.indicator.animationOptions.curve.transform(_animationController.value);
+        _opacity = widget.indicator.animationOptions.curve
+            .transform(_animationController.value);
       }
     });
   }
@@ -47,10 +53,14 @@ class _GuideIndicatorWidgetState extends State<GuideIndicatorWidget> with Ticker
   void initState() {
     switch (widget.indicator.animationOptions.type) {
       case AnimationType.scale:
-        _animatable = widget.indicator.animationOptions.animate ? widget.indicator.animationOptions.initialScale : 1;
+        _animatable = widget.indicator.animationOptions.animate
+            ? widget.indicator.animationOptions.initialScale
+            : 1;
         break;
       case AnimationType.translation:
-        _animatable = widget.indicator.animationOptions.animate ? widget.indicator.animationOptions.transitionOffset : 0;
+        _animatable = widget.indicator.animationOptions.animate
+            ? widget.indicator.animationOptions.transitionOffset
+            : 0;
         break;
     }
     _opacity = widget.indicator.animationOptions.fade ? 0 : 1;
@@ -87,7 +97,8 @@ class _GuideIndicatorWidgetState extends State<GuideIndicatorWidget> with Ticker
   Offset _getOffset() {
     switch (widget.indicator.animationOptions.translationMode) {
       case TranslationMode.vertical:
-        return Offset(0, widget.direction == AxisDirection.up ? _animatable : -_animatable);
+        return Offset(0,
+            widget.direction == AxisDirection.up ? _animatable : -_animatable);
       case TranslationMode.right:
         return Offset(-_animatable, 0);
       case TranslationMode.left:

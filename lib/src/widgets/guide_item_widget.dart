@@ -24,7 +24,8 @@ class GuideItemWidget extends StatefulWidget {
   State<GuideItemWidget> createState() => _GuideItemWidgetState();
 }
 
-class _GuideItemWidgetState extends State<GuideItemWidget> with TickerProviderStateMixin {
+class _GuideItemWidgetState extends State<GuideItemWidget>
+    with TickerProviderStateMixin {
   double _indicatorSize = 0;
   Offset _itemPos = Offset.zero;
   Size _itemSize = Size.zero;
@@ -33,8 +34,11 @@ class _GuideItemWidgetState extends State<GuideItemWidget> with TickerProviderSt
   double _animatable = 0;
   double _opacity = 0;
 
-  late final GuideDisplayOptions displayOptions = widget.item.displayOptions?.call(widget.defaultDisplayOptions) ?? widget.defaultDisplayOptions;
-  late final AnimationController _animController = AnimationController(duration: displayOptions.animationOptions.duration, vsync: this);
+  late final GuideDisplayOptions displayOptions =
+      widget.item.displayOptions?.call(widget.defaultDisplayOptions) ??
+          widget.defaultDisplayOptions;
+  late final AnimationController _animController = AnimationController(
+      duration: displayOptions.animationOptions.duration, vsync: this);
 
   Timer? _repaintTimer;
 
@@ -42,15 +46,20 @@ class _GuideItemWidgetState extends State<GuideItemWidget> with TickerProviderSt
     setState(() {
       switch (displayOptions.animationOptions.type) {
         case AnimationType.scale:
-          _animatable = displayOptions.animationOptions.curve.transform(_animController.value) * (1 - displayOptions.animationOptions.initialScale) +
+          _animatable = displayOptions.animationOptions.curve
+                      .transform(_animController.value) *
+                  (1 - displayOptions.animationOptions.initialScale) +
               displayOptions.animationOptions.initialScale;
           break;
         case AnimationType.translation:
-          _animatable = displayOptions.animationOptions.curve.transform(1 - _animController.value) * displayOptions.animationOptions.transitionOffset;
+          _animatable = displayOptions.animationOptions.curve
+                  .transform(1 - _animController.value) *
+              displayOptions.animationOptions.transitionOffset;
           break;
       }
       if (displayOptions.animationOptions.fade) {
-        _opacity = displayOptions.animationOptions.curve.transform(_animController.value);
+        _opacity = displayOptions.animationOptions.curve
+            .transform(_animController.value);
       }
     });
   }
@@ -64,10 +73,14 @@ class _GuideItemWidgetState extends State<GuideItemWidget> with TickerProviderSt
 
     switch (displayOptions.animationOptions.type) {
       case AnimationType.scale:
-        _animatable = displayOptions.animationOptions.animate ? displayOptions.animationOptions.initialScale : 1;
+        _animatable = displayOptions.animationOptions.animate
+            ? displayOptions.animationOptions.initialScale
+            : 1;
         break;
       case AnimationType.translation:
-        _animatable = displayOptions.animationOptions.animate ? displayOptions.animationOptions.transitionOffset : 0;
+        _animatable = displayOptions.animationOptions.animate
+            ? displayOptions.animationOptions.transitionOffset
+            : 0;
         break;
     }
     _opacity = displayOptions.animationOptions.fade ? 0 : 1;
@@ -88,7 +101,9 @@ class _GuideItemWidgetState extends State<GuideItemWidget> with TickerProviderSt
 
   void _fetchState() {
     setState(() {
-      _direction = _itemPos.dy > MediaQuery.of(context).size.height / 2 ? AxisDirection.down : AxisDirection.up;
+      _direction = _itemPos.dy > MediaQuery.of(context).size.height / 2
+          ? AxisDirection.down
+          : AxisDirection.up;
       _itemPos = widget.item.targetWidgetKey.getPosition();
       _itemSize = widget.item.targetWidgetKey.getSize();
     });
@@ -127,7 +142,8 @@ class _GuideItemWidgetState extends State<GuideItemWidget> with TickerProviderSt
     var mode = displayOptions.animationOptions.translationMode;
     switch (mode) {
       case TranslationMode.vertical:
-        return Offset(0, _direction == AxisDirection.up ? _animatable : -_animatable);
+        return Offset(
+            0, _direction == AxisDirection.up ? _animatable : -_animatable);
       case TranslationMode.right:
         return Offset(-_animatable, 0);
       case TranslationMode.left:
@@ -140,7 +156,8 @@ class _GuideItemWidgetState extends State<GuideItemWidget> with TickerProviderSt
     var mediaSize = MediaQuery.of(context).size;
     _fetchState();
     return Scaffold(
-      backgroundColor: displayOptions.highlightColor ?? Colors.white.withOpacity(0.2),
+      backgroundColor:
+          displayOptions.highlightColor ?? Colors.white.withOpacity(0.2),
       body: GestureDetector(
         onTap: widget.onTap,
         child: Stack(
@@ -152,7 +169,8 @@ class _GuideItemWidgetState extends State<GuideItemWidget> with TickerProviderSt
                 dy: _itemPos.dy + (_itemSize.height / 2),
                 width: _itemSize.width,
                 height: _itemSize.height,
-                color: displayOptions.backgroundColor ?? Colors.black.withOpacity(0.75),
+                color: displayOptions.backgroundColor ??
+                    Colors.black.withOpacity(0.75),
                 borderRadius: displayOptions.highlightRadius,
               ),
             ),
@@ -160,26 +178,44 @@ class _GuideItemWidgetState extends State<GuideItemWidget> with TickerProviderSt
               Positioned(
                 width: mediaSize.width,
                 top: _direction == AxisDirection.up
-                    ? _itemPos.dy + _itemSize.height + _axisOffset(displayOptions.defaultIndicator.padding.top) + _axisOffset(displayOptions.widgetPadding.top) + _indicatorSize
+                    ? _itemPos.dy +
+                        _itemSize.height +
+                        _axisOffset(
+                            displayOptions.defaultIndicator.padding.top) +
+                        _axisOffset(displayOptions.widgetPadding.top) +
+                        _indicatorSize
                     : null,
                 bottom: _direction == AxisDirection.down
                     ? mediaSize.height -
                         _itemPos.dy -
-                        _axisOffset(displayOptions.defaultIndicator.padding.bottom) -
+                        _axisOffset(
+                            displayOptions.defaultIndicator.padding.bottom) -
                         _axisOffset(displayOptions.widgetPadding.bottom) +
                         _indicatorSize
                     : null,
                 child: ConstrainedBox(
-                  constraints: BoxConstraints(maxWidth: mediaSize.width, maxHeight: mediaSize.height),
+                  constraints: BoxConstraints(
+                      maxWidth: mediaSize.width, maxHeight: mediaSize.height),
                   child: Padding(
-                    padding: EdgeInsets.only(left: displayOptions.widgetPadding.left, right: displayOptions.widgetPadding.right),
+                    padding: EdgeInsets.only(
+                        left: displayOptions.widgetPadding.left,
+                        right: displayOptions.widgetPadding.right),
                     child: _buildElement(),
                   ),
                 ),
               ),
               Positioned(
-                top: _direction == AxisDirection.up ? _itemPos.dy + _itemSize.height + _axisOffset(displayOptions.defaultIndicator.padding.top) : null,
-                bottom: _direction == AxisDirection.down ? mediaSize.height - _itemPos.dy - _axisOffset(displayOptions.defaultIndicator.padding.bottom) : null,
+                top: _direction == AxisDirection.up
+                    ? _itemPos.dy +
+                        _itemSize.height +
+                        _axisOffset(displayOptions.defaultIndicator.padding.top)
+                    : null,
+                bottom: _direction == AxisDirection.down
+                    ? mediaSize.height -
+                        _itemPos.dy -
+                        _axisOffset(
+                            displayOptions.defaultIndicator.padding.bottom)
+                    : null,
                 left: clampDouble(
                   _itemPos.dx + (_itemSize.width / 2) - (_indicatorSize / 2),
                   displayOptions.highlightRadius.x,

@@ -91,9 +91,13 @@ class _GuideState extends State<Guide> {
                 item: item,
                 onTap: () {
                   overlays[currentActive].$2.remove();
-                  for (currentActive = currentActive + 1; currentActive < overlays.length; currentActive++) {
+                  for (currentActive = currentActive + 1;
+                      currentActive < overlays.length;
+                      currentActive++) {
                     var current = overlays[currentActive];
-                    if (currentActive != overlays.length && current.$1.targetWidgetKey != null && current.$1.targetWidgetKey!.currentWidget != null) {
+                    if (currentActive != overlays.length &&
+                        current.$1.targetWidgetKey != null &&
+                        current.$1.targetWidgetKey!.currentWidget != null) {
                       overlayState.insert(current.$2);
                       break;
                     }
@@ -114,7 +118,9 @@ class _GuideState extends State<Guide> {
       return;
     }
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      currentActive = overlays.indexWhere((element) => element.$1.targetWidgetKey != null && element.$1.targetWidgetKey!.currentWidget != null);
+      currentActive = overlays.indexWhere((element) =>
+          element.$1.targetWidgetKey != null &&
+          element.$1.targetWidgetKey!.currentWidget != null);
       if (currentActive >= 0) {
         overlayState.insert(overlays[currentActive].$2);
       }
