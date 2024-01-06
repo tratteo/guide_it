@@ -38,7 +38,9 @@ class _GuideItemWidgetState extends State<GuideItemWidget>
       widget.item.displayOptions?.call(widget.defaultDisplayOptions) ??
           widget.defaultDisplayOptions;
   late final AnimationController _animController = AnimationController(
-      duration: displayOptions.animationOptions.duration, vsync: this);
+    duration: displayOptions.animationOptions.duration,
+    vsync: this,
+  );
 
   Timer? _repaintTimer;
 
@@ -143,7 +145,9 @@ class _GuideItemWidgetState extends State<GuideItemWidget>
     switch (mode) {
       case TranslationMode.vertical:
         return Offset(
-            0, _direction == AxisDirection.up ? _animatable : -_animatable);
+          0,
+          _direction == AxisDirection.up ? _animatable : -_animatable,
+        );
       case TranslationMode.right:
         return Offset(-_animatable, 0);
       case TranslationMode.left:
@@ -181,7 +185,8 @@ class _GuideItemWidgetState extends State<GuideItemWidget>
                     ? _itemPos.dy +
                         _itemSize.height +
                         _axisOffset(
-                            displayOptions.defaultIndicator.padding.top) +
+                          displayOptions.defaultIndicator.padding.top,
+                        ) +
                         _axisOffset(displayOptions.widgetPadding.top) +
                         _indicatorSize
                     : null,
@@ -189,17 +194,21 @@ class _GuideItemWidgetState extends State<GuideItemWidget>
                     ? mediaSize.height -
                         _itemPos.dy -
                         _axisOffset(
-                            displayOptions.defaultIndicator.padding.bottom) -
+                          displayOptions.defaultIndicator.padding.bottom,
+                        ) -
                         _axisOffset(displayOptions.widgetPadding.bottom) +
                         _indicatorSize
                     : null,
                 child: ConstrainedBox(
                   constraints: BoxConstraints(
-                      maxWidth: mediaSize.width, maxHeight: mediaSize.height),
+                    maxWidth: mediaSize.width,
+                    maxHeight: mediaSize.height,
+                  ),
                   child: Padding(
                     padding: EdgeInsets.only(
-                        left: displayOptions.widgetPadding.left,
-                        right: displayOptions.widgetPadding.right),
+                      left: displayOptions.widgetPadding.left,
+                      right: displayOptions.widgetPadding.right,
+                    ),
                     child: _buildElement(),
                   ),
                 ),
@@ -214,12 +223,13 @@ class _GuideItemWidgetState extends State<GuideItemWidget>
                     ? mediaSize.height -
                         _itemPos.dy -
                         _axisOffset(
-                            displayOptions.defaultIndicator.padding.bottom)
+                          displayOptions.defaultIndicator.padding.bottom,
+                        )
                     : null,
                 left: clampDouble(
                   _itemPos.dx + (_itemSize.width / 2) - (_indicatorSize / 2),
-                  displayOptions.highlightRadius.x,
-                  mediaSize.width - displayOptions.highlightRadius.x,
+                  0,
+                  mediaSize.width,
                 ),
                 child: GuideIndicatorWidget(
                   indicator: displayOptions.defaultIndicator,

@@ -97,8 +97,10 @@ class _GuideIndicatorWidgetState extends State<GuideIndicatorWidget>
   Offset _getOffset() {
     switch (widget.indicator.animationOptions.translationMode) {
       case TranslationMode.vertical:
-        return Offset(0,
-            widget.direction == AxisDirection.up ? _animatable : -_animatable);
+        return Offset(
+          0,
+          widget.direction == AxisDirection.up ? _animatable : -_animatable,
+        );
       case TranslationMode.right:
         return Offset(-_animatable, 0);
       case TranslationMode.left:

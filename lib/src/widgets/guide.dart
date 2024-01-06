@@ -118,9 +118,11 @@ class _GuideState extends State<Guide> {
       return;
     }
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      currentActive = overlays.indexWhere((element) =>
-          element.$1.targetWidgetKey != null &&
-          element.$1.targetWidgetKey!.currentWidget != null);
+      currentActive = overlays.indexWhere(
+        (element) =>
+            element.$1.targetWidgetKey != null &&
+            element.$1.targetWidgetKey!.currentWidget != null,
+      );
       if (currentActive >= 0) {
         overlayState.insert(overlays[currentActive].$2);
       }

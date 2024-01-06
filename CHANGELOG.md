@@ -1,3 +1,7 @@
+## 0.0.3
+
+- Fixed the padding of the `GuideIndicator`
+
 ## 0.0.2
 
 - Static analysis

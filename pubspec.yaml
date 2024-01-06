@@ -1,6 +1,6 @@
 name: guide_it
 description: "Create guides and showcase the features of your app in an easy ad customizable way"
-version: 0.0.2
+version: 0.0.3
 repository: https://github.com/tratteo/guide_it
 
 environment:
